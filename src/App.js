@@ -1,23 +1,30 @@
-import logo from './logo.svg';
 import './App.css';
+import Image from './Image';
+import {useState} from 'react'
+
+function getRandImage(){
+  const imageArr = ['html','css','js','react'];
+  return imageArr[Math.floor(Math.random()*imageArr.length)]
+}
+console.log(getRandImage());
 
 function App() {
+  const [images, setImages] = useState([])
+  const handleClick = () =>{
+       setImages([...images, getRandImage()])
+  }
+  const imageList = images.map((image,index)=>{
+    return <Image key={index} imageName={image} />
+  });
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className='header'>   
+      <button className='button-64'onClick={handleClick}> <span className='text'>Random Image</span></button>
+      </div>
+      {/* {images.map((image,index) => {
+          return <Image key={index} imageName={image} />
+      })}   */
+      <div className='img-container'>{imageList}</div>}
     </div>
   );
 }
